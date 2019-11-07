@@ -36,50 +36,58 @@ public class Task_12 {
 		 */
 		int amountOfDivisors = 500;
 
-	    long startTime = System.currentTimeMillis();
-
-	    findTriangleNumber(amountOfDivisors);
-	    System.out.println(System.currentTimeMillis() - startTime);
+	    System.out.println(findTriangleNumber(amountOfDivisors));
 	}
 	
 
 	private static int findTriangleNumber(int amountOfDivisors) {
 		
 		int number = 2;
-		long sum = 3;
+		int sum = 3;
 		
 		while(true) {
-			int am = findAountOfDividers(sum);
-			//System.out.println(number+"	"+sum+"	"+am);
-			
-			if(am >= amountOfDivisors) {
-				//System.out.println(number+"	"+sum+"	"+findAountOfDividers(sum));
-				return number;
+			if(findAountOfDividers(sum) >= amountOfDivisors) {
+				return sum;
 			}
 			number++;
 			sum+=number;
 		}
 	}
 
-	private static int findAountOfDividers(long number) {
+	private static int findAountOfDividers(int number) {
 
 		Map<Integer,Integer> map = new HashMap<Integer,Integer>();
-				
+		
+		// map contains prime numbers which out numbers consists of
+		// value in a map it is a power for each prime number
+		
+		
+		//loop which fills map
 		for(int i = 2; i<= number ;i++) {
 			if(number%i==0) {
 				number/=i;
 				if(map.containsKey(i))
 					map.put(i,map.get(i)+1);
 				else
-					map.put(i,2);
+					map.put(i,1);
 				i--;
 			}
-		}
-		int result = 1;
+		}		
+		//we can get amount of dividers by multiplying all powers of prime numbers + 1
+		
+		//for example
+		//D(28) = 1,2,4,7,14,28 = 6 dividers
+		
+		// prime numbers are
+		// 2^2 and 7^1 so
+		//D(28) = (2+1)*(1+1)
+		
+		int amountOfDividers = 1;
 		for(int i : map.keySet()) {
-			result*=map.get(i);
+			amountOfDividers*=(map.get(i)+1);
 		}
-		return result;
+		
+		return amountOfDividers;
 	}
 
 }
