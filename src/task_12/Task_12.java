@@ -33,12 +33,15 @@ public class Task_12 {
 
 			What is the value of the first triangle number to have over five hundred divisors?
 			
-			Even its not a brutforce in works to long...
 		 */
-		
-		int amountOfDivisors = 113;
-		System.out.println(findTriangleNumber(amountOfDivisors));
+		int amountOfDivisors = 500;
+
+	    long startTime = System.currentTimeMillis();
+
+	    findTriangleNumber(amountOfDivisors);
+	    System.out.println(System.currentTimeMillis() - startTime);
 	}
+	
 
 	private static int findTriangleNumber(int amountOfDivisors) {
 		
@@ -46,8 +49,11 @@ public class Task_12 {
 		long sum = 3;
 		
 		while(true) {
-			if(findAountOfDividers(sum) >= amountOfDivisors) {
-				System.out.println(number+"	"+sum+"	"+findAountOfDividers(sum));
+			int am = findAountOfDividers(sum);
+			//System.out.println(number+"	"+sum+"	"+am);
+			
+			if(am >= amountOfDivisors) {
+				//System.out.println(number+"	"+sum+"	"+findAountOfDividers(sum));
 				return number;
 			}
 			number++;
@@ -57,19 +63,23 @@ public class Task_12 {
 
 	private static int findAountOfDividers(long number) {
 
-		Set<Integer> set = new HashSet<Integer>();
-		
-		int counter = 0;
-		
+		Map<Integer,Integer> map = new HashMap<Integer,Integer>();
+				
 		for(int i = 2; i<= number ;i++) {
 			if(number%i==0) {
 				number/=i;
-				counter++;
-				set.add(i);	
+				if(map.containsKey(i))
+					map.put(i,map.get(i)+1);
+				else
+					map.put(i,2);
 				i--;
 			}
 		}
-		return counter*set.size();
+		int result = 1;
+		for(int i : map.keySet()) {
+			result*=map.get(i);
+		}
+		return result;
 	}
 
 }
