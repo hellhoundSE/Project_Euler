@@ -38,7 +38,7 @@ public class Task_8 {
 	}
 
 	private static long findGreatestProduct(String number, int adjacentLength) {
-		
+
 		long greatestProduct = 0;
 		for (int leftLimiter = 0, rightLimiter = adjacentLength; rightLimiter < number
 				.length(); leftLimiter++, rightLimiter++) {
@@ -48,12 +48,12 @@ public class Task_8 {
 			for (int i = leftLimiter; i < rightLimiter; i++) {
 				tempNumber += number.charAt(i);
 			}
-			
+
 			long tempProduct = findProduct(tempNumber);
 			if (tempProduct > greatestProduct) {
 				greatestProduct = tempProduct;
 			}
-			
+
 		}
 		return greatestProduct;
 	}
